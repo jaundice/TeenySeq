@@ -11,6 +11,7 @@
 #include "SortedLinkedList.h"
 #include "MidiEvent.h"
 #include "StringComparer.h"
+#include "Collection.h"
 
 namespace ByteFarm {
 	using namespace DataStructures;
@@ -32,13 +33,14 @@ namespace ByteFarm {
 
 
 		class MidiPattern {
-			SortedLinkedList<MidiEvent>* EventStorage;
+			MidiEventComparer cmpr = MidiEventComparer();
+
+			Collection<MidiEvent>* EventStorage = new SortedLinkedList<MidiEvent>(&cmpr);
 
 		public:
 			String Name;
 			MidiPattern() {
-				MidiEventComparer* cmpr = new MidiEventComparer();
-				EventStorage = new SortedLinkedList<MidiEvent>(cmpr);
+
 			};
 
 			void InsertEvent(MidiEvent* evt) {
@@ -55,6 +57,10 @@ namespace ByteFarm {
 
 			Enumerator<MidiEvent>* GetEnumerator() {
 				return EventStorage->GetEnumerator();
+			}
+
+			virtual ~MidiPattern() {
+				delete EventStorage;
 			}
 
 		};

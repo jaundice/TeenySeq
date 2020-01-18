@@ -80,12 +80,12 @@ namespace ByteFarm {
 				Comparer = comparer;
 			}
 
-		
+
 			virtual ByteFarm::DataStructures::Enumerator<T>* GetEnumerator() override {
 				return new Enumerator(Head);
 			}
 
-			virtual void Remove(T* obj) override{
+			virtual void Remove(T* obj) override {
 
 				if (Head->Value == obj) {
 					Node* n = Head;
@@ -179,6 +179,10 @@ namespace ByteFarm {
 
 				}
 				count++;
+			}
+
+			virtual ~SortedLinkedList() {
+				Clear();
 			}
 		};
 

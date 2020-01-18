@@ -21,6 +21,7 @@ namespace ByteFarm {
 			virtual void Remove(T* item) = 0;
 			virtual Enumerator<T>* GetEnumerator() = 0;
 			virtual T* GetItemAtIndex(uint32_t index) = 0;
+			virtual ~Collection() {};
 		};
 	}
 }

@@ -13,6 +13,7 @@
 #include "MidiInterface.h"
 #include "MidiInstrument.h"
 #include "StringComparer.h"
+#include "Collection.h"
 
 namespace ByteFarm {
 	namespace TeenySeq {
@@ -23,7 +24,7 @@ namespace ByteFarm {
 		class SequencerTrack {
 			MidiPatternComparer mpcmpr = MidiPatternComparer();
 
-			SortedLinkedList<MidiPattern> _patterns = SortedLinkedList<MidiPattern>(&mpcmpr);
+			Collection<MidiPattern> * _patterns = new SortedLinkedList<MidiPattern>(&mpcmpr);
 			MidiInterface* _inputDevice;
 			byte _inputChannel;
 			MidiInstrument* _midiInstrument;
@@ -36,14 +37,18 @@ namespace ByteFarm {
 			}
 
 			Enumerator<MidiPattern>* GetPatternEnumerator() {
-				return _patterns.GetEnumerator();
+				return _patterns->GetEnumerator();
 			}
 
 
 			MidiPattern* CreatePattern() {
 				MidiPattern* pattern = new MidiPattern();
-				_patterns.Insert(pattern);
+				_patterns->Insert(pattern);
 				return pattern;
+			}
+
+			virtual ~SequencerTrack() {
+				delete _patterns;
 			}
 		};
 

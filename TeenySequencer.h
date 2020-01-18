@@ -18,6 +18,7 @@
 #include "MasterControls.h"
 #include "TrackControls.h"
 #include "UIManager.h"
+#include "Collection.h"
 
 
 namespace ByteFarm {
@@ -30,8 +31,8 @@ namespace ByteFarm {
 			SequencerTrackComparer scmpr = SequencerTrackComparer();
 			MidiInterfaceComparer dcmpr = MidiInterfaceComparer();
 
-			SortedLinkedList<MidiInterface> _devices = SortedLinkedList<MidiInterface>(&dcmpr);
-			SortedLinkedList<SequencerTrack> _tracks = SortedLinkedList<SequencerTrack>(&scmpr);
+			Collection<MidiInterface> * _devices = new SortedLinkedList<MidiInterface>(&dcmpr);
+			Collection<SequencerTrack> * _tracks = new SortedLinkedList<SequencerTrack>(&scmpr);
 
 			MainButtonMatrix  _mainMatrix = MainButtonMatrix();
 			MasterControls _masterControls = MasterControls();
@@ -39,7 +40,7 @@ namespace ByteFarm {
 				TrackControls(&Wire ,1),TrackControls(&Wire, 2),TrackControls(&Wire ,3)
 			};
 
-			UIManager _UIManager = UIManager(&_mainMatrix, &_masterControls, &_trackControls[1], &_trackControls[2], &_trackControls[3], &_tracks);
+			UIManager _UIManager = UIManager(&_mainMatrix, &_masterControls, &_trackControls[1], &_trackControls[2], &_trackControls[3], _tracks);
 
 		public:
 			TeenySequencer() {
@@ -47,30 +48,30 @@ namespace ByteFarm {
 				HardwareSerial serials[3]{ Serial1, Serial2, Serial3 };
 
 				for (byte i = 0; i < 3; i++) {
-					_devices.Insert(new DinMidiPort(serials[i], "DIN " + String(i)));
+					_devices->Insert(new DinMidiPort(serials[i], "DIN " + String(i)));
 				}
 
 				for (byte j = 0; j < 16; j++) {
-					_devices.Insert(new UsbMidiPort(j));
+					_devices->Insert(new UsbMidiPort(j));
 				}
 				;
 
 				for (byte k = 0; k < 16; k++) {
-					_tracks.Insert(new SequencerTrack("Track " + String(k)));
+					_tracks->Insert(new SequencerTrack("Track " + String(k)));
 				}
 
 			};
 
 			int GetNumTracks() {
-				return _tracks.GetCount();
+				return _tracks->GetCount();
 			}
 
 			Enumerator<SequencerTrack>* GetTrackEnumerator() {
-				return _tracks.GetEnumerator();
+				return _tracks->GetEnumerator();
 			}
 
 			Enumerator<MidiInterface>* GetMidiDeviceEnumerator() {
-				return _devices.GetEnumerator();
+				return _devices->GetEnumerator();
 			}
 
 		};

@@ -106,6 +106,7 @@ namespace ByteFarm {
 
 			public:
 				WholeMatrixSingleTrackLayout(MainButtonMatrix* matrix, TrackControls* track1Controls, TrackControls* track2Controls, TrackControls* track3Controls) {
+					_matrix = matrix;
 					_track1Controls = track1Controls;
 					_track2Controls = track2Controls;
 					_track3Controls = track3Controls;
