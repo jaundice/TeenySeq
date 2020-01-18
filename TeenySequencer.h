@@ -17,6 +17,7 @@
 #include "MainButtonMatrix.h"
 #include "MasterControls.h"
 #include "TrackControls.h"
+#include "UIManager.h"
 
 
 namespace ByteFarm {
@@ -38,6 +39,8 @@ namespace ByteFarm {
 				TrackControls(&Wire ,1),TrackControls(&Wire, 2),TrackControls(&Wire ,3)
 			};
 
+			UIManager _UIManager = UIManager(&_mainMatrix, &_masterControls, &_trackControls[1], &_trackControls[2], &_trackControls[3], &_tracks);
+
 		public:
 			TeenySequencer() {
 
@@ -55,6 +58,7 @@ namespace ByteFarm {
 				for (byte k = 0; k < 16; k++) {
 					_tracks.Insert(new SequencerTrack("Track " + String(k)));
 				}
+
 			};
 
 			int GetNumTracks() {

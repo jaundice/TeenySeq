@@ -16,6 +16,8 @@ namespace ByteFarm {
 		public:
 			virtual T* GetCurrent() = 0;
 			virtual bool Next() = 0;
+
+			virtual ~Enumerator() {};
 		};
 
 	}

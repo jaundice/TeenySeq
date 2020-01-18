@@ -9,9 +9,10 @@
 #include "WProgram.h"
 #endif
 #include "Enumerator.h"
+#include "Collection.h"
 namespace ByteFarm {
 	namespace DataStructures {
-
+		using namespace ByteFarm::DataStructures;
 		template <class T>
 		class SortComparer {
 
@@ -23,7 +24,7 @@ namespace ByteFarm {
 		};
 
 		template <class T>
-		class SortedLinkedList {
+		class SortedLinkedList : public Collection<T> {
 			class Node {
 
 			public:
@@ -40,16 +41,6 @@ namespace ByteFarm {
 
 
 			SortComparer<T>* Comparer;
-
-
-		public:
-			uint32_t GetCount() {
-				return count;
-			}
-
-			SortedLinkedList(SortComparer<T>* comparer) {
-				Comparer = comparer;
-			}
 
 			class Enumerator : public ByteFarm::DataStructures::Enumerator<T> {
 				Node* _curr = nullptr;
@@ -74,16 +65,27 @@ namespace ByteFarm {
 					_curr = root;
 				};
 
-				virtual ~Enumerator() {
+				virtual ~Enumerator() override {
 					_curr = nullptr;
 				}
 			};
 
-			Enumerator* GetEnumerator() {
+
+		public:
+			virtual uint32_t GetCount() override {
+				return count;
+			}
+
+			SortedLinkedList(SortComparer<T>* comparer) {
+				Comparer = comparer;
+			}
+
+		
+			virtual ByteFarm::DataStructures::Enumerator<T>* GetEnumerator() override {
 				return new Enumerator(Head);
 			}
 
-			void Remove(T* obj) {
+			virtual void Remove(T* obj) override{
 
 				if (Head->Value == obj) {
 					Node* n = Head;
@@ -110,18 +112,18 @@ namespace ByteFarm {
 				}
 			}
 
-			T* GetItemAtIndex(int index) {
+			virtual T* GetItemAtIndex(uint32_t index) override {
 				if (index > GetCount()) {
 					return NULL;
 				}
 
-				Enumerator* enu = GetEnumerator();
+				ByteFarm::DataStructures::Enumerator<T>* enu = GetEnumerator();
 
-				for (int i = 0; i < index; i++) {
+				for (uint32_t i = 0; i < index; i++) {
 					enu->Next();
 				}
 
-				T* ret = enu->Current();
+				T* ret = enu->GetCurrent();
 
 				delete enu;
 
@@ -129,7 +131,7 @@ namespace ByteFarm {
 
 			}
 
-			void Clear() {
+			virtual void Clear() override {
 				Node* c = Head;
 				Head = nullptr;
 
@@ -143,7 +145,7 @@ namespace ByteFarm {
 				count = 0;
 			}
 
-			void Insert(T* obj) {
+			virtual void Insert(T* obj) override {
 				Node* node = new Node();
 				node->Value = obj;
 				if (!(Head)) {

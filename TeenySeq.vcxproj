@@ -107,11 +107,14 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="ClipLaunchLayout.h" />
+    <ClInclude Include="Collection.h" />
     <ClInclude Include="Enumerator.h" />
     <ClInclude Include="MainButtonMatrix.h" />
     <ClInclude Include="MasterControls.h" />
     <ClInclude Include="MidiInstrument.h" />
     <ClInclude Include="MidiInterfaceComparer.h" />
+    <ClInclude Include="SingleTrackLayout.h" />
     <ClInclude Include="SortedLinkedList.h" />
     <ClInclude Include="MidiInterface.h" />
     <ClInclude Include="MidiEvent.h" />
@@ -120,14 +123,19 @@
     <ClInclude Include="StringComparer.h" />
     <ClInclude Include="TeenySequencer.h" />
     <ClInclude Include="TrackControls.h" />
+    <ClInclude Include="UILayout.h" />
+    <ClInclude Include="UIManager.h" />
     <ClInclude Include="__vm\.TeenySeq.vsarduino.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="ClipLaunchLayout.cpp" />
+    <ClCompile Include="Collection.cpp" />
     <ClCompile Include="Enumerator.cpp" />
     <ClCompile Include="MainButtonMatrix.cpp" />
     <ClCompile Include="MasterControls.cpp" />
     <ClCompile Include="MidiInstrument.cpp" />
     <ClCompile Include="MidiInterfaceComparer.cpp" />
+    <ClCompile Include="SingleTrackLayout.cpp" />
     <ClCompile Include="SortedLinkedList.cpp" />
     <ClCompile Include="MidiInterface.cpp" />
     <ClCompile Include="MidiEvent.cpp" />
@@ -136,6 +144,8 @@
     <ClCompile Include="StringComparer.cpp" />
     <ClCompile Include="TeenySequencer.cpp" />
     <ClCompile Include="TrackControls.cpp" />
+    <ClCompile Include="UILayout.cpp" />
+    <ClCompile Include="UIManager.cpp" />
   </ItemGroup>
   <PropertyGroup>
     <DebuggerFlavor>VisualMicroDebugger</DebuggerFlavor>

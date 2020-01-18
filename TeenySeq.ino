@@ -5,6 +5,11 @@
 */
 
 
+#include "Collection.h"
+#include "ClipLaunchLayout.h"
+#include "SingleTrackLayout.h"
+#include "UILayout.h"
+#include "UIManager.h"
 #include "Enumerator.h"
 #include "TrackControls.h"
 #include "MasterControls.h"
