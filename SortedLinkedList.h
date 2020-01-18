@@ -181,7 +181,7 @@ namespace ByteFarm {
 				count++;
 			}
 
-			virtual ~SortedLinkedList() {
+			virtual ~SortedLinkedList() override {
 				Clear();
 			}
 		};

@@ -24,6 +24,7 @@ namespace ByteFarm {
 			class MidiInterface {
 			public:
 				String Name;
+				virtual ~MidiInterface() {};
 
 			};
 
@@ -31,7 +32,11 @@ namespace ByteFarm {
 
 			public:
 				UsbMidiPort(byte portNumber) {
-					
+
+				};
+
+				virtual ~UsbMidiPort()override {
+
 				};
 			};
 
@@ -40,12 +45,12 @@ namespace ByteFarm {
 			public:
 				DinMidiPort(HardwareSerial& serial, String name) {
 					iface = new midi::MidiInterface<HardwareSerial>(serial);
-					Name = name;		
+					Name = name;
 				};
 
-				~DinMidiPort() {
+				virtual ~DinMidiPort() override {
 					delete iface;
-				}
+				};
 			};
 
 
