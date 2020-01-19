@@ -5,6 +5,8 @@
 */
 
 
+#include "CVInstrument.h"
+#include "Instrument.h"
 #include "Events.h"
 #include "Collection.h"
 #include "ClipLaunchLayout.h"

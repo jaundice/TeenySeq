@@ -4,22 +4,25 @@
 #define _MIDIINSTRUMENT_h
 
 #if defined(ARDUINO) && ARDUINO >= 100
-	#include "arduino.h"
+#include "arduino.h"
 #else
-	#include "WProgram.h"
+#include "WProgram.h"
 #endif
 #include "MidiInterface.h"
+#include "Instrument.h"
 namespace ByteFarm {
 	namespace TeenySeq {
-		using namespace ByteFarm::TeenySeq::Midi;
+		namespace Instruments {
+			using namespace ByteFarm::TeenySeq::Midi;
+			using namespace ByteFarm::TeenySeq;
 
-		class MidiInstrument {
-			String Name;
-			MidiInterface* _outputInterface;
-			byte outputChannel;
-			byte _controllerMap[12];
-		};
+			class MidiInstrument :public Instrument {
 
+				MidiInterface* _outputInterface;
+				byte outputChannel;
+				byte _controllerMap[12];
+			};
+		}
 	}
 }
 #endif

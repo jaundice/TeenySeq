@@ -16,6 +16,7 @@
 #include "Collection.h"
 #include "Events.h"
 #include "Enumerator.h"
+#include "Instrument.h"
 
 namespace ByteFarm {
 	namespace TeenySeq {
@@ -23,13 +24,14 @@ namespace ByteFarm {
 		using namespace ByteFarm::DataStructures;
 		using namespace ByteFarm::TeenySeq::Midi;
 		using namespace ByteFarm::Events;
+		using namespace ByteFarm::TeenySeq::Instruments;
 		class SequencerTrack {
 			//MidiPatternComparer mpcmpr = MidiPatternComparer();
 
 			Collection<MidiPattern>* _patterns = new LinkedList<MidiPattern>();
 			MidiInterface* _inputDevice;
 			byte _inputChannel;
-			MidiInstrument* _midiInstrument;
+			Instrument* _instrument;
 
 		public:
 			String Name;
