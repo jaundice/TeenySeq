@@ -5,6 +5,7 @@
 */
 
 
+#include "Events.h"
 #include "Collection.h"
 #include "ClipLaunchLayout.h"
 #include "SingleTrackLayout.h"

@@ -28,11 +28,11 @@ namespace ByteFarm {
 		using namespace ByteFarm::TeenySeq::UI;
 
 		class TeenySequencer {
-			SequencerTrackComparer scmpr = SequencerTrackComparer();
-			MidiInterfaceComparer dcmpr = MidiInterfaceComparer();
+			//SequencerTrackComparer scmpr = SequencerTrackComparer();
+			//MidiInterfaceComparer dcmpr = MidiInterfaceComparer();
 
-			Collection<MidiInterface> * _devices = new SortedLinkedList<MidiInterface>(&dcmpr);
-			Collection<SequencerTrack> * _tracks = new SortedLinkedList<SequencerTrack>(&scmpr);
+			Collection<MidiInterface> * _devices = new LinkedList<MidiInterface>();
+			Collection<SequencerTrack> * _tracks = new LinkedList<SequencerTrack>();
 
 			MainButtonMatrix  _mainMatrix = MainButtonMatrix();
 			MasterControls _masterControls = MasterControls();

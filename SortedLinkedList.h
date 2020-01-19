@@ -15,41 +15,38 @@ namespace ByteFarm {
 		using namespace ByteFarm::DataStructures;
 		template <class T>
 		class SortComparer {
-
 		public:
-
 			virtual int Compare(T* a, T* b) = 0;
-
-
 		};
 
 		template <class T>
-		class SortedLinkedList : public Collection<T> {
-			class Node {
+		class Node {
+		public:
+			T* Value = nullptr;
+			Node* Next = nullptr;
 
-			public:
-				T* Value = nullptr;
-				Node* Next = nullptr;
-
-				~Node() {
-					delete this->Value;
-				};
+			~Node() {
+				delete this->Value;
 			};
+		};
 
-			Node* Head = nullptr;
+		template <class T>
+		class LinkedList : public Collection<T> {
+
+		protected:
+
+
+
+			Node<T>* Head = nullptr;
 			uint32_t count = 0;
 
 
-			SortComparer<T>* Comparer;
-
 			class Enumerator : public ByteFarm::DataStructures::Enumerator<T> {
-				Node* _curr = nullptr;
-
-
+				Node<T>* _curr = nullptr;
 			public:
 				virtual T* GetCurrent() override {
 					return (_curr) ? _curr->Value : NULL;
-				};
+				}
 
 				virtual bool Next() override {
 					if ((_curr->Next)) {
@@ -61,9 +58,9 @@ namespace ByteFarm {
 					}
 					return false;
 				}
-				Enumerator(Node* root) {
+				Enumerator(Node<T>* root) {
 					_curr = root;
-				};
+				}
 
 				virtual ~Enumerator() override {
 					_curr = nullptr;
@@ -72,14 +69,14 @@ namespace ByteFarm {
 
 
 		public:
+
+			LinkedList() {
+
+			}
+
 			virtual uint32_t GetCount() override {
 				return count;
 			}
-
-			SortedLinkedList(SortComparer<T>* comparer) {
-				Comparer = comparer;
-			}
-
 
 			virtual ByteFarm::DataStructures::Enumerator<T>* GetEnumerator() override {
 				return new Enumerator(Head);
@@ -88,7 +85,7 @@ namespace ByteFarm {
 			virtual void Remove(T* obj) override {
 
 				if (Head->Value == obj) {
-					Node* n = Head;
+					Node<T>* n = Head;
 					Head = n->Next;
 					n->Next = nullptr;
 					delete n;
@@ -96,8 +93,8 @@ namespace ByteFarm {
 				}
 				else {
 
-					Node* prev = nullptr;
-					Node* curr = nullptr;
+					Node<T>* prev = nullptr;
+					Node<T>* curr = nullptr;
 
 					for (curr = Head; curr != nullptr && curr->Value != obj; curr = curr->Next) {
 						prev = curr;
@@ -110,7 +107,8 @@ namespace ByteFarm {
 						count--;
 					}
 				}
-			}
+			};
+
 
 			virtual T* GetItemAtIndex(uint32_t index) override {
 				if (index > GetCount()) {
@@ -129,14 +127,37 @@ namespace ByteFarm {
 
 				return ret;
 
+			};
+
+			virtual void Insert(T* obj) override {
+				Node<T>* node = new Node<T>();
+				node->Value = obj;
+				if (!(Head)) {
+					Head = node;
+				}
+				else {
+					Node<T>* prev = nullptr;
+					int16_t i = 0;
+					for (Node<T>* curr = Head; (curr); i++, curr = curr->Next) {
+						prev = curr;
+					}
+
+
+
+					if ((prev) && !(prev->Next)) {
+						prev->Next = node;
+					}
+
+				}
+				count++;
 			}
 
 			virtual void Clear() override {
-				Node* c = Head;
+				Node<T>* c = Head;
 				Head = nullptr;
 
 				while (c != nullptr) {
-					Node* n = c->Next;
+					Node<T>* n = c->Next;
 					c->Next = nullptr;
 					delete c;
 					c = n;
@@ -145,22 +166,38 @@ namespace ByteFarm {
 				count = 0;
 			}
 
-			virtual void Insert(T* obj) override {
-				Node* node = new Node();
+			virtual ~LinkedList() override {
+				Clear();
+			}
+		};
+
+
+
+		template <class T>
+		class SortedLinkedList : public LinkedList<T> {
+			SortComparer<T>* Comparer;
+
+
+		public:
+			SortedLinkedList(SortComparer<T>* comparer) {
+				Comparer = comparer;
+			}
+			virtual void Insert(T* obj) {
+				Node<T>* node = new Node<T>();
 				node->Value = obj;
-				if (!(Head)) {
-					Head = node;
+				if (!(this->Head)) {
+					this->Head = node;
 				}
 				else {
-					Node* prev = nullptr;
+					Node<T>* prev = nullptr;
 
 					int16_t i = 0;
-					for (Node* curr = Head; (curr); i++, curr = curr->Next) {
+					for (Node<T>* curr = this->Head; (curr); i++, curr = curr->Next) {
 
 						if (Comparer->Compare(node->Value, curr->Value) < 1) {
-							if (Head == curr) {
+							if (this->Head == curr) {
 								//Serial.println(F("replacing head"));
-								Head = node;
+								this->Head = node;
 								node->Next = curr;
 								break;
 							}
@@ -178,17 +215,17 @@ namespace ByteFarm {
 					}
 
 				}
-				count++;
+				this->count++;
 			}
 
 			virtual ~SortedLinkedList() override {
-				Clear();
+				this->Clear();
 			}
 		};
 
-
-
 	}
+
 }
+
 #endif
 

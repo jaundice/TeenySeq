@@ -110,6 +110,7 @@
     <ClInclude Include="ClipLaunchLayout.h" />
     <ClInclude Include="Collection.h" />
     <ClInclude Include="Enumerator.h" />
+    <ClInclude Include="Events.h" />
     <ClInclude Include="MainButtonMatrix.h" />
     <ClInclude Include="MasterControls.h" />
     <ClInclude Include="MidiInstrument.h" />
@@ -131,6 +132,7 @@
     <ClCompile Include="ClipLaunchLayout.cpp" />
     <ClCompile Include="Collection.cpp" />
     <ClCompile Include="Enumerator.cpp" />
+    <ClCompile Include="Events.cpp" />
     <ClCompile Include="MainButtonMatrix.cpp" />
     <ClCompile Include="MasterControls.cpp" />
     <ClCompile Include="MidiInstrument.cpp" />
