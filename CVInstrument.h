@@ -4,22 +4,28 @@
 #define _CVINSTRUMENT_h
 
 #if defined(ARDUINO) && ARDUINO >= 100
-	#include "arduino.h"
+#include "arduino.h"
 #else
 	#include "WProgram.h"
 #endif
 #include "Instrument.h"
-namespace ByteFarm {
+
+namespace ByteFarm
+{
 	namespace TeenySeq
 	{
-		namespace Instruments {
+		namespace Instruments
+		{
+			class CVInstrument : public Instrument
+			{
+			public :
 
-			class CVInstrument : public Instrument {
-
+				virtual ~CVInstrument()
+				{
+				}
 			};
 		}
 	}
 }
 
 #endif
-

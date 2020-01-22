@@ -10,11 +10,16 @@
 #endif
 #include "SortedLinkedList.h"
 #include "Enumerator.h"
-namespace ByteFarm {
-	namespace Events {
-		using namespace ByteFarm::DataStructures;
+
+namespace ByteFarm
+{
+	namespace Events
+	{
+		using namespace DataStructures;
+
 		template <class U, class V>
-		class EventHandler {
+		class EventHandler
+		{
 		public:
 			typedef void (*Callback)(U*, V*);
 		protected:
@@ -22,15 +27,17 @@ namespace ByteFarm {
 
 
 		public:
-			EventHandler() {
-
+			EventHandler()
+			{
 			};
 
-			void RegisterCallback(Callback cb) {
+			void RegisterCallback(Callback cb)
+			{
 				_handlers.Insert(cb);
 			};
 
-			void RemoveCallback(Callback cb) {
+			void RemoveCallback(Callback cb)
+			{
 				_handlers.Remove(cb);
 			};
 
@@ -39,16 +46,22 @@ namespace ByteFarm {
 				_handlers.Clear();
 			};
 
-			void Trigger(U* sender, V* args) {
-				if (_handlers.GetCount() > 0) {
+			void Trigger(U* sender, V* args)
+			{
+				if (_handlers.GetCount() > 0)
+				{
 					auto enu = _handlers.GetEnumerator();
-					do {
+					do
+					{
 						enu.GetCurrent()(sender, args);
-					} while (enu.Next());
+					}
+					while (enu.Next());
 					delete enu;
 				}
 			};
-			virtual ~EventHandler() {
+
+			virtual ~EventHandler()
+			{
 				Clear();
 			};
 		};
@@ -56,4 +69,3 @@ namespace ByteFarm {
 }
 
 #endif
-

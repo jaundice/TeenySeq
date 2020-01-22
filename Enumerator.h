@@ -8,19 +8,21 @@
 #else
 #include "WProgram.h"
 #endif
-namespace ByteFarm {
-	namespace DataStructures {
-
+namespace ByteFarm
+{
+	namespace DataStructures
+	{
 		template <class T>
-		class Enumerator {
+		class Enumerator
+		{
 		public:
 			virtual T* GetCurrent() = 0;
 			virtual bool Next() = 0;
 
-			virtual ~Enumerator() {};
+			virtual ~Enumerator()
+			{
+			};
 		};
-
 	}
 }
 #endif
-

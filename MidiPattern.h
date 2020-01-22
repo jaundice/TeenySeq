@@ -13,69 +13,83 @@
 #include "StringComparer.h"
 #include "Collection.h"
 
-namespace ByteFarm {
+namespace ByteFarm
+{
 	using namespace DataStructures;
-	namespace TeenySeq {
-		using namespace Events;
-		using namespace ByteFarm::TeenySeq;
 
-		class MidiEventComparer : public SortComparer<MidiEvent> {
+	namespace TeenySeq
+	{
+		using namespace Events;
+		using namespace TeenySeq;
+
+		class MidiEventComparer : public SortComparer<MidiEvent>
+		{
 		public:
-			virtual int Compare(MidiEvent* a, MidiEvent* b) override {
+			int Compare(MidiEvent* a, MidiEvent* b) override
+			{
 				return
-					a->Epoch < b->Epoch ? -1 :
-					a->Epoch > b->Epoch ? 1 :
-					a->EventType() == b->EventType() ? 0 :
-					a->EventType() == MidiEventType::Note ? -1 : 1;
+					a->Epoch < b->Epoch
+						? -1
+						: a->Epoch > b->Epoch
+						? 1
+						: a->EventType() == b->EventType()
+						? 0
+						: a->EventType() == MidiEventType::Note
+						? -1
+						: 1;
 			};
 		};
 
 
-
-		class MidiPattern {
+		class MidiPattern
+		{
 			MidiEventComparer cmpr = MidiEventComparer();
 
 			Collection<MidiEvent>* EventStorage = new SortedLinkedList<MidiEvent>(&cmpr);
 
 		public:
 			String Name;
-			MidiPattern() {
 
+			MidiPattern()
+			{
 			};
 
-			void InsertEvent(MidiEvent* evt) {
+			void InsertEvent(MidiEvent* evt)
+			{
 				EventStorage->Insert(evt);
 			};
 
-			void RemoveEvent(MidiEvent* evt) {
+			void RemoveEvent(MidiEvent* evt)
+			{
 				EventStorage->Remove(evt);
 			};
 
-			void ClearEvents() {
+			void ClearEvents()
+			{
 				EventStorage->Clear();
 			}
 
-			Enumerator<MidiEvent>* GetEnumerator() {
+			Enumerator<MidiEvent>* GetEnumerator()
+			{
 				return EventStorage->GetEnumerator();
 			}
 
-			virtual ~MidiPattern() {
+			virtual ~MidiPattern()
+			{
 				delete EventStorage;
 			}
-
 		};
 
-		class MidiPatternComparer : public SortComparer<MidiPattern> {
-
+		class MidiPatternComparer : public SortComparer<MidiPattern>
+		{
 		public:
-			virtual int Compare(MidiPattern* a, MidiPattern* b) override {
+			int Compare(MidiPattern* a, MidiPattern* b) override
+			{
 				return stringComparer->Compare(&(a->Name), &(b->Name));
 			};
 		};
 	};
-
 }
 
 
 #endif
-

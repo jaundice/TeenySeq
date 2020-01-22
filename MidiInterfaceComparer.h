@@ -11,16 +11,22 @@
 #include "SortedLinkedList.h"
 #include "MidiInterface.h"
 #include "StringComparer.h"
-namespace ByteFarm {
-	namespace TeenySeq {
-		namespace Midi {
-			using namespace ByteFarm::DataStructures;
-			using namespace ByteFarm::TeenySeq::Midi;
-			using namespace ByteFarm::TeenySeq;
 
-			class MidiInterfaceComparer : public SortComparer<MidiInterface> {
+namespace ByteFarm
+{
+	namespace TeenySeq
+	{
+		namespace Midi
+		{
+			using namespace DataStructures;
+			using namespace Midi;
+			using namespace TeenySeq;
+
+			class MidiInterfaceComparer : public SortComparer<MidiInterface>
+			{
 			public:
-				virtual int Compare(MidiInterface* a, MidiInterface* b) override {
+				int Compare(MidiInterface* a, MidiInterface* b) override
+				{
 					return stringComparer->Compare(&(a->Name), &(b->Name));
 				};
 			};
@@ -28,4 +34,3 @@ namespace ByteFarm {
 	}
 }
 #endif
-

@@ -10,14 +10,16 @@
 #endif
 #include <Wire.h>
 
-struct ControlValue {
+struct ControlValue
+{
 	byte CCNumber;
 	bool HasChanged;
 	float_t Value;
 };
 
-class TrackControls {
-	byte CCNumbers[12]{ 1,2,3,4,5,6,7,8,9,10 };
+class TrackControls
+{
+	byte CCNumbers[12]{1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
 	String ParamNames[12];
 	float_t* _previousValues[12];
 	float_t* _currentValues[12];
@@ -27,29 +29,33 @@ class TrackControls {
 public:
 
 
-	TrackControls(TwoWire* wire, byte i2CId) {
+	TrackControls(TwoWire* wire, byte i2CId)
+	{
 		_i2cId = i2CId;
 		_wire = wire;
 	}
 
-	ControlValue GetControlValue(byte index) {
+	ControlValue GetControlValue(byte index)
+	{
 		ControlValue v{
-						CCNumbers[index],
-						(*_currentValues)[index] ,
-						!((*_currentValues)[index] == (*_previousValues)[index]) };
+			CCNumbers[index],
+			((*_currentValues)[index]) != ((*_previousValues)[index]),
+			((*_currentValues)[index])
+		};
 
 		return v;
 	}
 
-	void SetControl(byte index, byte CCNumber, String name) {
+	void SetControl(byte index, byte CCNumber, String name)
+	{
 		CCNumbers[index] = CCNumber;
 		ParamNames[index] = name;
 	}
 
-	void ReadRemote() {
-		_wire->requestFrom(_i2cId, (byte)1);
+	void ReadRemote()
+	{
+		_wire->requestFrom(_i2cId, static_cast<byte>(1));
 	}
 };
 
 #endif
-

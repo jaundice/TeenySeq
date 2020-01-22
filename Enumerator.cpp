@@ -3,5 +3,3 @@
 // 
 
 #include "Enumerator.h"
-
-

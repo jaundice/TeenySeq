@@ -14,49 +14,53 @@
 #include <string>
 #include "SortedLinkedList.h"
 
-namespace ByteFarm {
-	namespace TeenySeq {
-		namespace Midi {
-
-
-
+namespace ByteFarm
+{
+	namespace TeenySeq
+	{
+		namespace Midi
+		{
 			using namespace midi;
-			class MidiInterface {
+
+			class MidiInterface
+			{
 			public:
 				String Name;
-				virtual ~MidiInterface() {};
 
+				virtual ~MidiInterface()
+				{
+				};
 			};
 
-			class UsbMidiPort : public MidiInterface {
-
+			class UsbMidiPort : public MidiInterface
+			{
 			public:
-				UsbMidiPort(byte portNumber) {
-
+				UsbMidiPort(byte portNumber)
+				{
 				};
 
-				virtual ~UsbMidiPort()override {
-
+				~UsbMidiPort() override
+				{
 				};
 			};
 
-			class DinMidiPort : public MidiInterface {
+			class DinMidiPort : public MidiInterface
+			{
 				midi::MidiInterface<HardwareSerial>* iface;
 			public:
-				DinMidiPort(HardwareSerial& serial, String name) {
+				DinMidiPort(HardwareSerial& serial, String name)
+				{
 					iface = new midi::MidiInterface<HardwareSerial>(serial);
 					Name = name;
 				};
 
-				virtual ~DinMidiPort() override {
+				~DinMidiPort() override
+				{
 					delete iface;
 				};
 			};
-
-
 		}
 	}
 }
 
 #endif
-

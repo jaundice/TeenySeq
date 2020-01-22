@@ -8,11 +8,13 @@
 #else
 #include "WProgram.h"
 #endif
-namespace ByteFarm {
-	namespace TeenySeq {
-		namespace Events {
-
-			enum class MidiEventType :byte
+namespace ByteFarm
+{
+	namespace TeenySeq
+	{
+		namespace Events
+		{
+			enum class MidiEventType : byte
 			{
 				Note = 1,
 				CC = 2,
@@ -20,46 +22,60 @@ namespace ByteFarm {
 				SysEx = 4
 			};
 
-			struct MidiEvent {
+			struct MidiEvent
+			{
 			public:
 				uint32_t Epoch;
-				MidiEvent(uint32_t epoch) {
+
+				MidiEvent(uint32_t epoch)
+				{
 					Epoch = epoch;
 				}
+
 				virtual MidiEventType EventType() = 0;
-				virtual ~MidiEvent() {}
+
+				virtual ~MidiEvent()
+				{
+				}
 			};
 
-			struct NoteEvent : public MidiEvent {
+			struct NoteEvent : public MidiEvent
+			{
 			public:
 				uint32_t GateLength;
 				byte Note;
 				byte OnVelocity;
 				byte OffVelocity;
-				NoteEvent(uint32_t epoch, uint32_t length, byte onVelocity, byte offVelocity) :MidiEvent(epoch) {
+
+				NoteEvent(uint32_t epoch, uint32_t length, byte onVelocity, byte offVelocity) : MidiEvent(epoch)
+				{
 					GateLength = length;
 					OnVelocity = onVelocity;
 					OffVelocity = offVelocity;
 				}
-				virtual MidiEventType EventType() override {
+
+				MidiEventType EventType() override
+				{
 					return MidiEventType::Note;
 				}
-				virtual ~NoteEvent()  override {
 
+				~NoteEvent() override
+				{
 				};
 			};
 
-			struct CCParameterEvent : public MidiEvent {
+			struct CCParameterEvent : public MidiEvent
+			{
 			public:
 				byte CC;
 				byte Value;
-				virtual MidiEventType EventType() override {
+
+				MidiEventType EventType() override
+				{
 					return MidiEventType::CC;
 				}
 			};
-
 		}
 	}
 }
 #endif
-

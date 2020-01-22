@@ -8,13 +8,14 @@
 #else
 #include "WProgram.h"
 #endif
-namespace ByteFarm {
-	namespace TeenySeq {
+namespace ByteFarm
+{
+	namespace TeenySeq
+	{
 		namespace UI
 		{
-
-			class UILayoutBase {
-
+			class UILayoutBase
+			{
 			public:
 				virtual void Wire() = 0;
 				virtual void Unwire() = 0;
@@ -22,14 +23,16 @@ namespace ByteFarm {
 
 
 			template <class T>
-			class UILayout :public UILayoutBase {
+			class UILayout : public UILayoutBase
+			{
 				T* Model;
 
 				virtual void UnwireModel(T* model) = 0;
 				virtual void WireModel(T* model) = 0;
 
 			public:
-				virtual void SetModel(T* model) {
+				virtual void SetModel(T* model)
+				{
 					if (!(Model == nullptr))
 					{
 						UnwireModel(Model);
@@ -38,9 +41,7 @@ namespace ByteFarm {
 					WireModel(model);
 				};
 			};
-
 		}
 	}
 }
 #endif
-

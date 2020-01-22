@@ -10,14 +10,18 @@
 #endif
 #include "MidiInterface.h"
 #include "Instrument.h"
-namespace ByteFarm {
-	namespace TeenySeq {
-		namespace Instruments {
-			using namespace ByteFarm::TeenySeq::Midi;
-			using namespace ByteFarm::TeenySeq;
 
-			class MidiInstrument :public Instrument {
+namespace ByteFarm
+{
+	namespace TeenySeq
+	{
+		namespace Instruments
+		{
+			using namespace Midi;
+			using namespace TeenySeq;
 
+			class MidiInstrument : public Instrument
+			{
 				MidiInterface* _outputInterface;
 				byte outputChannel;
 				byte _controllerMap[12];
@@ -26,4 +30,3 @@ namespace ByteFarm {
 	}
 }
 #endif
-

@@ -15,13 +15,16 @@
 #include "TrackControls.h"
 #include "ClipLaunchLayout.h"
 
-namespace ByteFarm {
-	namespace TeenySeq {
+namespace ByteFarm
+{
+	namespace TeenySeq
+	{
 		namespace UI
 		{
-			using namespace ByteFarm::TeenySeq;
+			using namespace TeenySeq;
 
-			class UIManager {
+			class UIManager
+			{
 				UILayoutBase* ActiveLayout;
 				WholeMatrixSingleTrackLayout* _wholeTrackLayout;
 				TripleTrackLayout* _tripleTrackLayout;
@@ -36,7 +39,10 @@ namespace ByteFarm {
 				Collection<SequencerTrack>* _tracks;
 			public:
 
-				UIManager(MainButtonMatrix* mainMatrix, MasterControls* masterControls, TrackControls* track1Controls, TrackControls* track2Controls, TrackControls* track3Controls, Collection<SequencerTrack>* tracksCollection) {
+				UIManager(MainButtonMatrix* mainMatrix, MasterControls* masterControls, TrackControls* track1Controls,
+				          TrackControls* track2Controls, TrackControls* track3Controls,
+				          Collection<SequencerTrack>* tracksCollection)
+				{
 					_tracks = tracksCollection;
 					_mainMatrix = mainMatrix;
 					_masterControls = masterControls;
@@ -44,15 +50,20 @@ namespace ByteFarm {
 					_track2Controls = track2Controls;
 					_track3Conrols = track3Controls;
 
-					_wholeTrackLayout = new WholeMatrixSingleTrackLayout(mainMatrix, track1Controls, track2Controls, track3Controls);
-					_tripleTrackLayout = new TripleTrackLayout(mainMatrix, track1Controls, track2Controls, track3Controls);
-					_clipLaunchLayout = new ClipLaunchLayout(mainMatrix, track1Controls, track2Controls, track3Controls);
+					_wholeTrackLayout = new WholeMatrixSingleTrackLayout(
+						mainMatrix, track1Controls, track2Controls, track3Controls);
+					_tripleTrackLayout = new TripleTrackLayout(mainMatrix, track1Controls, track2Controls,
+					                                           track3Controls);
+					_clipLaunchLayout = new ClipLaunchLayout
+						(mainMatrix, track1Controls, track2Controls, track3Controls);
 
-					if (_tracks->GetCount() > 0) {
+					if (_tracks->GetCount() > 0)
+					{
 						auto trackEnu = _tracks->GetEnumerator();
 
 						uint8_t i = 0;
-						do {
+						do
+						{
 							if (i == 0)
 							{
 								_wholeTrackLayout->SetModel(trackEnu->GetCurrent());
@@ -60,13 +71,16 @@ namespace ByteFarm {
 							_tripleTrackLayout->SetModel(i, trackEnu->GetCurrent());
 
 							i++;
-						} while (i < 3 && i < _tracks->GetCount());
+						}
+						while (i < 3 && i < _tracks->GetCount());
 					}
 					SetActiveLayout(_wholeTrackLayout);
 				}
 
-				void SetActiveLayout(UILayoutBase* layout) {
-					if (!(ActiveLayout == nullptr)) {
+				void SetActiveLayout(UILayoutBase* layout)
+				{
+					if (!(ActiveLayout == nullptr))
+					{
 						ActiveLayout->Unwire();
 					}
 
@@ -78,9 +92,7 @@ namespace ByteFarm {
 				//	_seq = seq;
 				//}
 			};
-
 		}
 	}
 }
 #endif
-

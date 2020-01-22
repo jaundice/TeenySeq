@@ -14,42 +14,49 @@
 #include "MainButtonMatrix.h"
 #include "TrackControls.h"
 
-namespace ByteFarm {
-	namespace TeenySeq {
-		namespace UI {
-			class SingleTrackLayout :public UILayout<SequencerTrack> {
+namespace ByteFarm
+{
+	namespace TeenySeq
+	{
+		namespace UI
+		{
+			class SingleTrackLayout : public UILayout<SequencerTrack>
+			{
 				uint8_t _matrixRowOffset = 0;
 				uint8_t _matrixAvailableRows = 12;
 				MainButtonMatrix* _matrix;
 				TrackControls* _trackControls;
 
-				virtual void UnwireModel(SequencerTrack* model) override {
-
+				void UnwireModel(SequencerTrack* model) override
+				{
 				};
 
-				virtual void WireModel(SequencerTrack* model) override {
-
+				void WireModel(SequencerTrack* model) override
+				{
 				};
 
 
 			public:
-				SingleTrackLayout(MainButtonMatrix* matrix, TrackControls* trackControls, uint8_t matrixRowOffset, uint8_t avaliableMatrixRows) {
+				SingleTrackLayout(MainButtonMatrix* matrix, TrackControls* trackControls, uint8_t matrixRowOffset,
+				                  uint8_t avaliableMatrixRows)
+				{
 					_trackControls = trackControls;
 					_matrix = matrix;
 					_matrixAvailableRows = avaliableMatrixRows;
 					_matrixRowOffset = matrixRowOffset;
 				};
 
-				void Wire() override {
-
+				void Wire() override
+				{
 				}
 
-				void Unwire() override {
-
+				void Unwire() override
+				{
 				}
 			};
 
-			class TripleTrackLayout :public UILayoutBase {
+			class TripleTrackLayout : public UILayoutBase
+			{
 				MainButtonMatrix* _matrix;
 				SingleTrackLayout* _track1;
 				SingleTrackLayout* _track2;
@@ -59,7 +66,9 @@ namespace ByteFarm {
 				TrackControls* _track3Controls;
 
 			public:
-				TripleTrackLayout(MainButtonMatrix* matrix, TrackControls* track1Controls, TrackControls* track2Controls, TrackControls* track3Controls) {
+				TripleTrackLayout(MainButtonMatrix* matrix, TrackControls* track1Controls,
+				                  TrackControls* track2Controls, TrackControls* track3Controls)
+				{
 					_track1Controls = track1Controls;
 					_track2Controls = track2Controls;
 					_track3Controls = track3Controls;
@@ -68,8 +77,10 @@ namespace ByteFarm {
 					_track3 = new SingleTrackLayout(matrix, track3Controls, 8, 4);
 				}
 
-				void SetModel(uint8_t slot, SequencerTrack* track) {
-					switch (slot) {
+				void SetModel(uint8_t slot, SequencerTrack* track)
+				{
+					switch (slot)
+					{
 					case 1:
 						_track1->SetModel(track);
 						break;
@@ -82,42 +93,46 @@ namespace ByteFarm {
 					}
 				}
 
-				void Wire() override {
-
+				void Wire() override
+				{
 				}
 
-				void Unwire()override {
-
+				void Unwire() override
+				{
 				}
 			};
 
-			class WholeMatrixSingleTrackLayout : public UILayout<SequencerTrack> {
+			class WholeMatrixSingleTrackLayout : public UILayout<SequencerTrack>
+			{
 				MainButtonMatrix* _matrix;
 				TrackControls* _track1Controls;
 				TrackControls* _track2Controls;
 				TrackControls* _track3Controls;
 
-				void WireModel(SequencerTrack* model) override {
-
+				void WireModel(SequencerTrack* model) override
+				{
 				}
-				void UnwireModel(SequencerTrack* model) override {
 
+				void UnwireModel(SequencerTrack* model) override
+				{
 				}
 
 			public:
-				WholeMatrixSingleTrackLayout(MainButtonMatrix* matrix, TrackControls* track1Controls, TrackControls* track2Controls, TrackControls* track3Controls) {
+				WholeMatrixSingleTrackLayout(MainButtonMatrix* matrix, TrackControls* track1Controls,
+				                             TrackControls* track2Controls, TrackControls* track3Controls)
+				{
 					_matrix = matrix;
 					_track1Controls = track1Controls;
 					_track2Controls = track2Controls;
 					_track3Controls = track3Controls;
 				};
 
-				void Wire() override {
-
+				void Wire() override
+				{
 				};
 
-				void Unwire() override {
-
+				void Unwire() override
+				{
 				}
 			};
 		}
@@ -125,4 +140,3 @@ namespace ByteFarm {
 }
 
 #endif
-

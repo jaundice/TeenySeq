@@ -18,14 +18,18 @@
 #include "Enumerator.h"
 #include "Instrument.h"
 
-namespace ByteFarm {
-	namespace TeenySeq {
-		using namespace ByteFarm::TeenySeq;
-		using namespace ByteFarm::DataStructures;
-		using namespace ByteFarm::TeenySeq::Midi;
+namespace ByteFarm
+{
+	namespace TeenySeq
+	{
+		using namespace TeenySeq;
+		using namespace DataStructures;
+		using namespace Midi;
 		using namespace ByteFarm::Events;
-		using namespace ByteFarm::TeenySeq::Instruments;
-		class SequencerTrack {
+		using namespace Instruments;
+
+		class SequencerTrack
+		{
 			//MidiPatternComparer mpcmpr = MidiPatternComparer();
 
 			Collection<MidiPattern>* _patterns = new LinkedList<MidiPattern>();
@@ -38,27 +42,29 @@ namespace ByteFarm {
 			//EventHandler<SequencerTrack, MidiPattern>*  PatternAdded = new EventHandler<SequencerTrack, MidiPattern>() ;
 
 
-			SequencerTrack(String name) {
+			SequencerTrack(String name)
+			{
 				Name = name;
 			}
 
-			Enumerator<MidiPattern>* GetPatternEnumerator() {
+			Enumerator<MidiPattern>* GetPatternEnumerator()
+			{
 				return _patterns->GetEnumerator();
 			}
 
 
-			MidiPattern* CreatePattern() {
+			MidiPattern* CreatePattern()
+			{
 				MidiPattern* pattern = new MidiPattern();
 				_patterns->Insert(pattern);
 				//PatternAdded->Trigger(this, pattern);
 				return pattern;
 			}
 
-			virtual ~SequencerTrack() {
+			virtual ~SequencerTrack()
+			{
 				delete _patterns;
 			}
-
-
 		};
 
 		//class SequencerTrackComparer : public SortComparer<SequencerTrack> {
@@ -68,9 +74,7 @@ namespace ByteFarm {
 		//		return stringComparer->Compare(&(a->Name), &(b->Name));
 		//	}
 		//};
-
 	}
 }
 
 #endif
-
