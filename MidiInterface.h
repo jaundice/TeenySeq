@@ -11,8 +11,6 @@
 #define USB_MIDI
 
 #include <MIDI.h>
-#include <string>
-#include "SortedLinkedList.h"
 
 namespace ByteFarm
 {
@@ -27,9 +25,7 @@ namespace ByteFarm
 			public:
 				String Name;
 
-				virtual ~MidiInterface()
-				{
-				};
+				virtual ~MidiInterface();;
 			};
 
 			class UsbMidiPort : public MidiInterface
@@ -39,25 +35,16 @@ namespace ByteFarm
 				{
 				};
 
-				~UsbMidiPort() override
-				{
-				};
+				~UsbMidiPort() override;;
 			};
 
 			class DinMidiPort : public MidiInterface
 			{
 				midi::MidiInterface<HardwareSerial>* iface;
 			public:
-				DinMidiPort(HardwareSerial& serial, String name)
-				{
-					iface = new midi::MidiInterface<HardwareSerial>(serial);
-					Name = name;
-				};
+				DinMidiPort(HardwareSerial& serial, String name);;
 
-				~DinMidiPort() override
-				{
-					delete iface;
-				};
+				~DinMidiPort() override;;
 			};
 		}
 	}

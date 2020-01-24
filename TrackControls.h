@@ -52,10 +52,7 @@ public:
 		ParamNames[index] = name;
 	}
 
-	void ReadRemote()
-	{
-		_wire->requestFrom(_i2cId, static_cast<byte>(1));
-	}
+	void ReadRemote();
 };
 
 #endif

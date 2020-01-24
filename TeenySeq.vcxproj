@@ -107,6 +107,7 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="CallbackWrapper.h" />
     <ClInclude Include="ClipLaunchLayout.h" />
     <ClInclude Include="Collection.h" />
     <ClInclude Include="CVInstrument.h" />
@@ -131,6 +132,7 @@
     <ClInclude Include="__vm\.TeenySeq.vsarduino.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="CallbackWrapper.cpp" />
     <ClCompile Include="ClipLaunchLayout.cpp" />
     <ClCompile Include="Collection.cpp" />
     <ClCompile Include="CVInstrument.cpp" />

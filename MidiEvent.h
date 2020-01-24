@@ -24,7 +24,6 @@ namespace ByteFarm
 
 			struct MidiEvent
 			{
-			public:
 				uint32_t Epoch;
 
 				MidiEvent(uint32_t epoch)
@@ -39,7 +38,7 @@ namespace ByteFarm
 				}
 			};
 
-			struct NoteEvent : public MidiEvent
+			struct NoteEvent : MidiEvent
 			{
 			public:
 				uint32_t GateLength;
@@ -54,14 +53,9 @@ namespace ByteFarm
 					OffVelocity = offVelocity;
 				}
 
-				MidiEventType EventType() override
-				{
-					return MidiEventType::Note;
-				}
+				MidiEventType EventType() override;
 
-				~NoteEvent() override
-				{
-				};
+				~NoteEvent() override;;
 			};
 
 			struct CCParameterEvent : public MidiEvent

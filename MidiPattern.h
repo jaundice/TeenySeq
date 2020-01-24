@@ -25,19 +25,7 @@ namespace ByteFarm
 		class MidiEventComparer : public SortComparer<MidiEvent>
 		{
 		public:
-			int Compare(MidiEvent* a, MidiEvent* b) override
-			{
-				return
-					a->Epoch < b->Epoch
-						? -1
-						: a->Epoch > b->Epoch
-						? 1
-						: a->EventType() == b->EventType()
-						? 0
-						: a->EventType() == MidiEventType::Note
-						? -1
-						: 1;
-			};
+			int Compare(MidiEvent* a, MidiEvent* b) override;;
 		};
 
 
@@ -50,34 +38,17 @@ namespace ByteFarm
 		public:
 			String Name;
 
-			MidiPattern()
-			{
-			};
+			MidiPattern();;
 
-			void InsertEvent(MidiEvent* evt)
-			{
-				EventStorage->Insert(evt);
-			};
+			void InsertEvent(MidiEvent* evt) const;;
 
-			void RemoveEvent(MidiEvent* evt)
-			{
-				EventStorage->Remove(evt);
-			};
+			void RemoveEvent(MidiEvent* evt) const;;
 
-			void ClearEvents()
-			{
-				EventStorage->Clear();
-			}
+			void ClearEvents() const;
 
-			Enumerator<MidiEvent>* GetEnumerator()
-			{
-				return EventStorage->GetEnumerator();
-			}
+			Enumerator<MidiEvent>* GetEnumerator() const;
 
-			virtual ~MidiPattern()
-			{
-				delete EventStorage;
-			}
+			virtual ~MidiPattern();
 		};
 
 		class MidiPatternComparer : public SortComparer<MidiPattern>

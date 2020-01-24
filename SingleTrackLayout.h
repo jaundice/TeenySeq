@@ -27,13 +27,9 @@ namespace ByteFarm
 				MainButtonMatrix* _matrix;
 				TrackControls* _trackControls;
 
-				void UnwireModel(SequencerTrack* model) override
-				{
-				};
+				void UnwireModel(SequencerTrack* model) override;;
 
-				void WireModel(SequencerTrack* model) override
-				{
-				};
+				void WireModel(SequencerTrack* model) override;;
 
 
 			public:
@@ -46,13 +42,9 @@ namespace ByteFarm
 					_matrixRowOffset = matrixRowOffset;
 				};
 
-				void Wire() override
-				{
-				}
+				void Wireup() override;
 
-				void Unwire() override
-				{
-				}
+				void Unwire() override;
 			};
 
 			class TripleTrackLayout : public UILayoutBase
@@ -67,15 +59,7 @@ namespace ByteFarm
 
 			public:
 				TripleTrackLayout(MainButtonMatrix* matrix, TrackControls* track1Controls,
-				                  TrackControls* track2Controls, TrackControls* track3Controls)
-				{
-					_track1Controls = track1Controls;
-					_track2Controls = track2Controls;
-					_track3Controls = track3Controls;
-					_track1 = new SingleTrackLayout(matrix, track1Controls, 0, 4);
-					_track2 = new SingleTrackLayout(matrix, track2Controls, 4, 4);
-					_track3 = new SingleTrackLayout(matrix, track3Controls, 8, 4);
-				}
+				                  TrackControls* track2Controls, TrackControls* track3Controls);
 
 				void SetModel(uint8_t slot, SequencerTrack* track)
 				{
@@ -93,13 +77,9 @@ namespace ByteFarm
 					}
 				}
 
-				void Wire() override
-				{
-				}
+				void Wireup() override;
 
-				void Unwire() override
-				{
-				}
+				void Unwire() override;
 			};
 
 			class WholeMatrixSingleTrackLayout : public UILayout<SequencerTrack>
@@ -109,31 +89,17 @@ namespace ByteFarm
 				TrackControls* _track2Controls;
 				TrackControls* _track3Controls;
 
-				void WireModel(SequencerTrack* model) override
-				{
-				}
+				void WireModel(SequencerTrack* model) override;
 
-				void UnwireModel(SequencerTrack* model) override
-				{
-				}
+				void UnwireModel(SequencerTrack* model) override;
 
 			public:
 				WholeMatrixSingleTrackLayout(MainButtonMatrix* matrix, TrackControls* track1Controls,
-				                             TrackControls* track2Controls, TrackControls* track3Controls)
-				{
-					_matrix = matrix;
-					_track1Controls = track1Controls;
-					_track2Controls = track2Controls;
-					_track3Controls = track3Controls;
-				};
+				                             TrackControls* track2Controls, TrackControls* track3Controls);;
 
-				void Wire() override
-				{
-				};
+				void Wireup() override;;
 
-				void Unwire() override
-				{
-				}
+				void Unwire() override;
 			};
 		}
 	}

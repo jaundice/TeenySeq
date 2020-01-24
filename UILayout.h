@@ -17,7 +17,8 @@ namespace ByteFarm
 			class UILayoutBase
 			{
 			public:
-				virtual void Wire() = 0;
+				virtual ~UILayoutBase() = default;
+				virtual void Wireup() = 0;
 				virtual void Unwire() = 0;
 			};
 
@@ -31,16 +32,19 @@ namespace ByteFarm
 				virtual void WireModel(T* model) = 0;
 
 			public:
-				virtual void SetModel(T* model)
-				{
-					if (!(Model == nullptr))
-					{
-						UnwireModel(Model);
-					}
-					Model = model;
-					WireModel(model);
-				};
+				virtual void SetModel(T* model);;
 			};
+
+			template <class T>
+			void UILayout<T>::SetModel(T* model)
+			{
+				if (!(Model == nullptr))
+				{
+					UnwireModel(Model);
+				}
+				Model = model;
+				WireModel(model);
+			}
 		}
 	}
 }

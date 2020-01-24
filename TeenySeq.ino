@@ -5,6 +5,7 @@
 */
 
 
+#include "CallbackWrapper.h"
 #include "CVInstrument.h"
 #include "Instrument.h"
 #include "Events.h"

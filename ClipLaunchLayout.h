@@ -27,35 +27,23 @@ namespace ByteFarm
 			{
 				MainButtonMatrix* _mainButtonMatrix;
 				TrackControls* _track1Controls;
-				TrackControls* _track2Conrols;
+				TrackControls* _track2Controls;
 				TrackControls* _track3Controls;
 
-				void WireModel(Collection<SequencerTrack>* model) override
-				{
-				}
-
-				void UnwireModel(Collection<SequencerTrack>* model) override
-				{
-				}
 
 			public:
 
+
 				ClipLaunchLayout(MainButtonMatrix* buttons, TrackControls* track1Controls,
-				                 TrackControls* track2Controls, TrackControls* track3Controls)
-				{
-					_mainButtonMatrix = buttons;
-					_track1Controls = track1Controls;
-					_track2Conrols = track2Controls;
-					_track3Controls = track3Controls;
-				}
+				                 TrackControls* track2Controls, TrackControls* track3Controls);
 
-				void Wire() override
-				{
-				}
+				void WireModel(Collection<SequencerTrack>* model) override;
 
-				void Unwire() override
-				{
-				}
+				void UnwireModel(Collection<SequencerTrack>* model) override;
+
+				void Wireup() override;
+
+				void Unwire() override;
 			};
 		}
 	}

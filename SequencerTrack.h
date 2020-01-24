@@ -11,8 +11,6 @@
 #include "SortedLinkedList.h"
 #include "MidiPattern.h"
 #include "MidiInterface.h"
-#include "MidiInstrument.h"
-#include "StringComparer.h"
 #include "Collection.h"
 #include "Events.h"
 #include "Enumerator.h"
@@ -39,32 +37,17 @@ namespace ByteFarm
 
 		public:
 			String Name;
-			//EventHandler<SequencerTrack, MidiPattern>*  PatternAdded = new EventHandler<SequencerTrack, MidiPattern>() ;
+			EventHandler<SequencerTrack, MidiPattern>* PatternAdded;
 
 
-			SequencerTrack(String name)
-			{
-				Name = name;
-			}
+			SequencerTrack(String name);
 
-			Enumerator<MidiPattern>* GetPatternEnumerator()
-			{
-				return _patterns->GetEnumerator();
-			}
+			Enumerator<MidiPattern>* GetPatternEnumerator() const;
 
 
-			MidiPattern* CreatePattern()
-			{
-				MidiPattern* pattern = new MidiPattern();
-				_patterns->Insert(pattern);
-				//PatternAdded->Trigger(this, pattern);
-				return pattern;
-			}
+			MidiPattern* CreatePattern();
 
-			virtual ~SequencerTrack()
-			{
-				delete _patterns;
-			}
+			virtual ~SequencerTrack();
 		};
 
 		//class SequencerTrackComparer : public SortComparer<SequencerTrack> {

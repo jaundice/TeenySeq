@@ -10,6 +10,7 @@
 #endif
 #include "SortedLinkedList.h"
 #include "Enumerator.h"
+#include "CallbackWrapper.h"
 
 namespace ByteFarm
 {
@@ -20,51 +21,69 @@ namespace ByteFarm
 		template <class U, class V>
 		class EventHandler
 		{
-		public:
-			typedef void (*Callback)(U*, V*);
 		protected:
-			LinkedList<Callback> _handlers = LinkedList<Callback>();
-
+			LinkedList<CallbackWrapper<U, V>>* _handlers;
 
 		public:
-			EventHandler()
-			{
-			};
+			EventHandler();;
 
-			void RegisterCallback(Callback cb)
-			{
-				_handlers.Insert(cb);
-			};
+			void RegisterCallback(CallbackWrapper<U, V>* cb);;
 
-			void RemoveCallback(Callback cb)
-			{
-				_handlers.Remove(cb);
-			};
+			void RemoveCallback(CallbackWrapper<U, V>* cb);;
 
-			void Clear()
-			{
-				_handlers.Clear();
-			};
+			void Clear();;
 
-			void Trigger(U* sender, V* args)
-			{
-				if (_handlers.GetCount() > 0)
-				{
-					auto enu = _handlers.GetEnumerator();
-					do
-					{
-						enu.GetCurrent()(sender, args);
-					}
-					while (enu.Next());
-					delete enu;
-				}
-			};
+			void Trigger(U* sender, V* args);;
 
-			virtual ~EventHandler()
-			{
-				Clear();
-			};
+			virtual ~EventHandler();;
 		};
+
+		template <class U, class V>
+		EventHandler<U, V>::EventHandler()
+		{
+			_handlers = new LinkedList<CallbackWrapper<U, V>>();
+		}
+
+		template <class U, class V>
+		void EventHandler<U, V>::RegisterCallback(CallbackWrapper<U, V>* cb)
+		{
+			_handlers->Insert(cb);
+		}
+
+		template <class U, class V>
+		void EventHandler<U, V>::RemoveCallback(CallbackWrapper<U, V>* cb)
+		{
+			_handlers->Remove(cb);
+		}
+
+		template <class U, class V>
+		void EventHandler<U, V>::Clear()
+		{
+			_handlers->Clear();
+		}
+
+		template <class U, class V>
+		void EventHandler<U, V>::Trigger(U* sender, V* args)
+		{
+			if (_handlers->GetCount() > 0)
+			{
+				auto enu = _handlers->GetEnumerator();
+				do
+				{
+					CallbackWrapper<U, V>* cb = ((enu->GetCurrent()));
+					cb->Call(sender, args);
+				}
+				while (enu->Next());
+				delete enu;
+			}
+		}
+
+		template <class U, class V>
+		EventHandler<U, V>::~EventHandler()
+		{
+			Clear();
+			delete _handlers;
+		}
 	}
 }
 
