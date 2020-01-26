@@ -10,7 +10,7 @@
 #endif
 #include "SortedLinkedList.h"
 #include "Enumerator.h"
-#include "CallbackWrapper.h"
+#include <functional>
 
 namespace ByteFarm
 {
@@ -22,14 +22,14 @@ namespace ByteFarm
 		class EventHandler
 		{
 		protected:
-			LinkedList<CallbackWrapper<U, V>>* _handlers;
+			LinkedList<std::function<void(U*, V*)>>* _handlers;
 
 		public:
 			EventHandler();;
 
-			void RegisterCallback(CallbackWrapper<U, V>* cb);;
+			void RegisterCallback(std::function<void(U*, V*)>* cb);;
 
-			void RemoveCallback(CallbackWrapper<U, V>* cb);;
+			void RemoveCallback(std::function<void(U*, V*)>* cb);;
 
 			void Clear();;
 
@@ -41,17 +41,17 @@ namespace ByteFarm
 		template <class U, class V>
 		EventHandler<U, V>::EventHandler()
 		{
-			_handlers = new LinkedList<CallbackWrapper<U, V>>();
+			_handlers = new LinkedList<std::function<void(U*, V*)>>();
 		}
 
 		template <class U, class V>
-		void EventHandler<U, V>::RegisterCallback(CallbackWrapper<U, V>* cb)
+		void EventHandler<U, V>::RegisterCallback(std::function<void(U*, V*)>* cb)
 		{
 			_handlers->Insert(cb);
 		}
 
 		template <class U, class V>
-		void EventHandler<U, V>::RemoveCallback(CallbackWrapper<U, V>* cb)
+		void EventHandler<U, V>::RemoveCallback(std::function<void(U*, V*)>* cb)
 		{
 			_handlers->Remove(cb);
 		}
@@ -70,8 +70,8 @@ namespace ByteFarm
 				auto enu = _handlers->GetEnumerator();
 				do
 				{
-					CallbackWrapper<U, V>* cb = ((enu->GetCurrent()));
-					cb->Call(sender, args);
+					std::function<void(U*, V*)>* cb = enu->GetCurrent();
+					cb->operator()(sender, args);
 				}
 				while (enu->Next());
 				delete enu;
@@ -84,6 +84,17 @@ namespace ByteFarm
 			Clear();
 			delete _handlers;
 		}
+	}
+}
+
+namespace std
+{
+	__attribute__((weak))
+
+	void __throw_bad_function_call()
+	{
+		Serial.println("Library Exception");
+		while (true) yield();
 	}
 }
 

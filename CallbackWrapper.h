@@ -8,6 +8,7 @@
 #else
 	#include "WProgram.h"
 #endif
+#include <functional>
 namespace ByteFarm
 {
 	namespace Events
@@ -16,16 +17,16 @@ namespace ByteFarm
 		class CallbackWrapper
 		{
 		public:
-			typedef void (*Callback)(U*, V*);
-			CallbackWrapper(Callback cb);
+			//typedef void (*Callback)(U*, V*);
+			CallbackWrapper(std::function<void(U*, V*)> *  cb);
 
 			void Call(U* sender, V* arg);
 		private:
-			Callback _cb;
+			std::function<void(U*,V*)> * _cb;
 		};
 
 		template <class U, class V>
-		CallbackWrapper<U, V>::CallbackWrapper(Callback cb)
+		CallbackWrapper<U, V>::CallbackWrapper(std::function<void(U*, V*)> * cb)
 		{
 			_cb = cb;
 		}
@@ -33,7 +34,7 @@ namespace ByteFarm
 		template <class U, class V>
 		void CallbackWrapper<U, V>::Call(U* sender, V* arg)
 		{
-			_cb(sender, arg);
+			(_cb)(sender, arg);
 		}
 	}
 }

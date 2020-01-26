@@ -33,6 +33,9 @@ namespace ByteFarm
 		{
 			//SequencerTrackComparer scmpr = SequencerTrackComparer();
 			//MidiInterfaceComparer dcmpr = MidiInterfaceComparer();
+			//
+			std::function<void(SequencerTrack*, MidiPattern*)> _patternAddedCallback = std::bind(
+				&TeenySequencer::PatternAdded, this, std::placeholders::_1, std::placeholders::_2);
 
 			Collection<MidiInterface>* _devices = new LinkedList<MidiInterface>();
 			Collection<SequencerTrack>* _tracks = new LinkedList<SequencerTrack>();
@@ -51,9 +54,9 @@ namespace ByteFarm
 
 			int GetNumTracks();
 
-			Enumerator<SequencerTrack>* GetTrackEnumerator();
+			Enumerator<SequencerTrack>* GetTrackEnumerator() const;
 
-			Enumerator<MidiInterface>* GetMidiDeviceEnumerator();
+			Enumerator<MidiInterface>* GetMidiDeviceEnumerator() const;
 
 			void PatternAdded(SequencerTrack* track, MidiPattern* pattern);
 		};

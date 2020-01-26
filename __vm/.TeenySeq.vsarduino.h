@@ -30,7 +30,8 @@
 #define __arm__
 #define __ARM__
 #define  __attribute__(x)
-typedef void *__builtin_va_list;
+typedef void*__builtin_va_list
+;
 #define __extension__
 #define __ATTR_PURE__
 #define __ATTR_CONST__
@@ -44,12 +45,16 @@ typedef void *__builtin_va_list;
 #define __GNUC_MINOR__ 5
 
 extern int at_quick_exit(void (*f)(void));
-int at_quick_exit(void (*f)(void)) {
-}
-extern int quick_exit(void (*f)(void));
-int quick_exit(void (*f)(void)) {
+
+int at_quick_exit(void (*f)(void))
+{
 }
 
+extern int quick_exit(void (*f)(void));
+
+int quick_exit(void (*f)(void))
+{
+}
 
 
 #define __INT64_TYPE__ 8
@@ -61,9 +66,9 @@ typedef long __intptr_t;
 typedef unsigned long __uintptr_t;
 typedef long __int32_t;
 typedef unsigned long __uint32_t;
-typedef unsigned short  __uint16_t;
+typedef unsigned short __uint16_t;
 typedef short __int16_t;
-typedef unsigned short  __uint8_t;
+typedef unsigned short __uint8_t;
 typedef short __int8_t;
 typedef unsigned long __uint64_t;
 typedef double __int64_t;

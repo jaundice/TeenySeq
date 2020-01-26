@@ -22,10 +22,8 @@ ByteFarm::TeenySeq::TeenySequencer::TeenySequencer()
 	{
 		auto t = new SequencerTrack("Track " + String(k));
 		_tracks->Insert(t);
-		//auto cb = new CallbackWrapper<SequencerTrack, MidiPattern>(
-		//	std::bind(TeenySequencer::PatternAdded, this, std::placeholders::_1, std::placeholders::_2)
-		//);
-		//t->PatternAdded->RegisterCallback(cb);
+		t->PatternAdded->RegisterCallback(
+			static_cast<std::function<void(SequencerTrack*, MidiPattern*)>*>(&_patternAddedCallback));
 	}
 }
 
@@ -34,12 +32,13 @@ int ByteFarm::TeenySeq::TeenySequencer::GetNumTracks()
 	return _tracks->GetCount();
 }
 
-ByteFarm::Enumerator<ByteFarm::TeenySeq::SequencerTrack>* ByteFarm::TeenySeq::TeenySequencer::GetTrackEnumerator()
+ByteFarm::Enumerator<ByteFarm::TeenySeq::SequencerTrack>* ByteFarm::TeenySeq::TeenySequencer::GetTrackEnumerator() const
 {
 	return _tracks->GetEnumerator();
 }
 
-ByteFarm::Enumerator<ByteFarm::TeenySeq::MidiInterface>* ByteFarm::TeenySeq::TeenySequencer::GetMidiDeviceEnumerator()
+ByteFarm::Enumerator<ByteFarm::TeenySeq::MidiInterface>* ByteFarm::TeenySeq::TeenySequencer::
+GetMidiDeviceEnumerator() const
 {
 	return _devices->GetEnumerator();
 }
