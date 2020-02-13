@@ -9,7 +9,7 @@
 #include "WProgram.h"
 #endif
 #define NEOPIXWIRE &Wire2
-
+#include <seesaw_neopixel.h>
 #include <Adafruit_NeoTrellis.h>
 #include <Wire.h>
 
@@ -35,12 +35,11 @@ namespace ByteFarm
 						Adafruit_NeoTrellis(11,NEOPIXWIRE), Adafruit_NeoTrellis(12,NEOPIXWIRE)
 					}
 				};
-				Adafruit_MultiTrellis _multi = Adafruit_MultiTrellis(reinterpret_cast<Adafruit_NeoTrellis*>(_trellis),
-				                                                     3, 4);
+				Adafruit_MultiTrellis _multi = Adafruit_MultiTrellis(*_trellis,3, 4);
 			public:
 				MainButtonMatrix()
 				{
-					//_multi = new Adafruit_MultiTrellis((Adafruit_NeoTrellis*)_trellis, 3, 4);
+					//_multi = new Adafruit_MultiTrellis(*_trellis, 3, 4);
 				}
 			};
 		}

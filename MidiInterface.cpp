@@ -11,17 +11,17 @@ Midi::MidiInterface::~MidiInterface()
 {
 }
 
-UsbMidiPort::~UsbMidiPort()
+Midi::UsbMidiPort::~UsbMidiPort()
 {
 }
 
-DinMidiPort::DinMidiPort(HardwareSerial& serial, String name)
+Midi::DinMidiPort::DinMidiPort(HardwareSerial& serial, String name)
 {
 	iface = new midi::MidiInterface<HardwareSerial>(serial);
 	Name = name;
 }
 
-DinMidiPort::~DinMidiPort()
+Midi::DinMidiPort::~DinMidiPort()
 {
 	delete iface;
 }

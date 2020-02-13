@@ -4,27 +4,11 @@
 	Author:     RALPH\John
 */
 
-
-#include "CallbackWrapper.h"
-#include "CVInstrument.h"
-#include "Instrument.h"
-#include "Events.h"
-#include "Collection.h"
-#include "ClipLaunchLayout.h"
-#include "SingleTrackLayout.h"
-#include "UILayout.h"
-#include "UIManager.h"
+#include "IntervalClock.h"
+#include "Clock.h"
 #include "Enumerator.h"
-#include "TrackControls.h"
-#include "MasterControls.h"
-#include "MainButtonMatrix.h"
-#include "StringComparer.h"
-#include "MidiInstrument.h"
-#include "MidiInterfaceComparer.h"
-#include <MIDI.h>
 #include "MidiInterface.h"
 #include "MidiPattern.h"
-#include "SortedLinkedList.h"
 #include "MidiEvent.h"
 #include "TeenySequencer.h"
 

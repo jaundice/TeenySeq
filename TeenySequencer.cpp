@@ -23,7 +23,7 @@ ByteFarm::TeenySeq::TeenySequencer::TeenySequencer()
 		auto t = new SequencerTrack("Track " + String(k));
 		_tracks->Insert(t);
 		t->PatternAdded->RegisterCallback(
-			static_cast<std::function<void(SequencerTrack*, MidiPattern*)>*>(&_patternAddedCallback));
+			&_patternAddedCallback);
 	}
 }
 
@@ -45,4 +45,17 @@ GetMidiDeviceEnumerator() const
 
 void ByteFarm::TeenySeq::TeenySequencer::PatternAdded(SequencerTrack* track, MidiPattern* pattern)
 {
+	Serial.print(track->Name + ": Pattern added");
+}
+
+ByteFarm::TeenySeq::TeenySequencer::~TeenySequencer()
+{
+	auto tracks = GetTrackEnumerator();
+	for (auto track = tracks->GetCurrent();track !=nullptr;tracks->Next())
+	{
+		track->PatternAdded->RemoveCallback(&_patternAddedCallback);
+	}
+	_tracks->Clear();
+	delete _tracks;
+	
 }

@@ -9,7 +9,7 @@
 	#include "WProgram.h"
 #endif
 #define NEOPIXWIRE &Wire2
-
+#include <seesaw_neopixel.h>
 #include <Adafruit_NeoTrellis.h>
 #include <Wire.h>
 

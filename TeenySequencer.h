@@ -19,6 +19,8 @@
 #include "TrackControls.h"
 #include "UIManager.h"
 #include "Collection.h"
+//#include <uClock.h>
+#include "Clock.h"
 #include <functional>
 
 namespace ByteFarm
@@ -28,12 +30,13 @@ namespace ByteFarm
 		using namespace Midi;
 		using namespace DataStructures;
 		using namespace UI;
-
+		//using namespace umodular::clock;
+		
 		class TeenySequencer
 		{
-			//SequencerTrackComparer scmpr = SequencerTrackComparer();
-			//MidiInterfaceComparer dcmpr = MidiInterfaceComparer();
-			//
+
+			Clock _clock = Clock();
+
 			std::function<void(SequencerTrack*, MidiPattern*)> _patternAddedCallback = std::bind(
 				&TeenySequencer::PatternAdded, this, std::placeholders::_1, std::placeholders::_2);
 
@@ -49,6 +52,7 @@ namespace ByteFarm
 			UIManager _UIManager = UIManager(&_mainMatrix, &_masterControls, &_trackControls[1], &_trackControls[2],
 			                                 &_trackControls[3], _tracks);
 
+
 		public:
 			TeenySequencer();;
 
@@ -59,6 +63,8 @@ namespace ByteFarm
 			Enumerator<MidiInterface>* GetMidiDeviceEnumerator() const;
 
 			void PatternAdded(SequencerTrack* track, MidiPattern* pattern);
+
+			virtual  ~TeenySequencer();
 		};
 	}
 }
