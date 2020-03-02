@@ -19,8 +19,21 @@ namespace ByteFarm
 
 		public:
 			IntervalClock()
-			{
+			= default;
 
+			void setInterval(uint16_t interval)
+			{
+				_timer.update(interval);
+			}
+
+			void Stop()
+			{
+				_timer.end();
+			}
+
+			void Start(void(*funct)(), uint16_t interval)
+			{
+				_timer.begin(funct, interval);
 			}
 		};
 
